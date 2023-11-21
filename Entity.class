@@ -14,6 +14,9 @@ public class SpawnEntity implements CommandExecutor
     {
         Player player = (Player) sender;
         Creeper creeper = (Creeper) player.getWorld().spawnEntity(player.getLocation(), EntityType.CREEPER);
+        creeper.setPowered(true);
+        creeper.ignite();
         return true;
     }
 }
+
