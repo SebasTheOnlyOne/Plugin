@@ -11,9 +11,6 @@ import org.regicide.test.SystemOfGrow.Grow;
 
 public final class Test extends JavaPlugin
 {
-
-    public static class SnowballPlugin extends JavaPlugin {
-
         public void onEnable()
         {
             getCommand("spawnEntity").setExecutor(new SpawnEntity());
@@ -33,6 +30,6 @@ public final class Test extends JavaPlugin
         public void onDisable() {
             // Plugin shutdown logic
         }
-    }
+}
 
 }
