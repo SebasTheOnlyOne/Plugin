@@ -6,7 +6,7 @@ description: 'This is Test plagin'
 
 commands:
   spawnEntity:
-    description: 'Спаунит заряженного крипера, который вскоре взорвётся'
+    description: 'Спавнит заряженного крипера, который вскоре взорвётся'
     usage: /<command>
     aliases:
       - se
