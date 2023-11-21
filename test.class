@@ -1,0 +1,38 @@
+package org.regicide.test;
+
+import org.bukkit.Bukkit;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.plugin.java.JavaPlugin;
+import org.regicide.test.Entity.SpawnEntity;
+import org.regicide.test.SnowballThrow.SnowballThrow;
+import org.regicide.test.SystemOfGrow.Grow;
+
+public final class Test extends JavaPlugin
+{
+
+    public static class SnowballPlugin extends JavaPlugin {
+
+        public void onEnable()
+        {
+            getCommand("spawnEntity").setExecutor(new SpawnEntity());
+            Bukkit.getPluginManager().registerEvents(new SnowballThrow(), this);
+            //getLogger().arg("WheatGrowth plugin has been enabled.");
+            Bukkit.getPluginManager().registerEvents(new Grow(), this);
+            System.out.println("The plagin get started");
+        }
+
+        @EventHandler
+        public void onPlayerJoin(PlayerJoinEvent event)
+        {
+            event.setJoinMessage("Welcome to server!");
+        }
+
+
+        public void onDisable() {
+            // Plugin shutdown logic
+        }
+    }
+
+}
