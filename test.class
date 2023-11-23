@@ -41,8 +41,9 @@ public final class Test extends JavaPlugin implements Listener {
     public void onBlockGrow(BlockGrowEvent event) {
         Block block = event.getBlock();
         Biome biome = block.getBiome();
+        block.getWorld().setGameRuleValue("randomTickSpeed", "3");
         if (biome == Biome.PLAINS) {
-            if (block.getType() == Material.WHEAT) {
+            if ((biome == Biome.PLAINS) || (biome == Biome.RIVER)) {
                 block.setMetadata("CustomTickSpeed", new FixedMetadataValue(this, 100));
             } else {
                 // Удаление значения per-block tick rate для других типов блоков
@@ -54,7 +55,7 @@ public final class Test extends JavaPlugin implements Listener {
 
         if (biome == Biome.DESERT) {
             if (block.getType() == Material.WHEAT) {
-                block.setMetadata("CustomTickSpeed", new FixedMetadataValue(this, 1));
+                block.setMetadata("CustomTickSpeed", new FixedMetadataValue(this, 0.5));
             } else {
                 // Удаление значения per-block tick rate для других типов блоков
                 if (block.hasMetadata("CustomTickSpeed")) {
