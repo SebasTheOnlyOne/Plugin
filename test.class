@@ -38,27 +38,35 @@ public final class Test extends JavaPlugin implements Listener {
 
 
     @EventHandler
-    public void onBlockGrow(BlockGrowEvent event)
-    {
+    public void onBlockGrow(BlockGrowEvent event) {
         Block block = event.getBlock();
         Biome biome = block.getBiome();
-            if (block.getType() == Material.WHEAT)
-            {
+        if (biome == Biome.PLAINS) {
+            if (block.getType() == Material.WHEAT) {
                 block.setMetadata("CustomTickSpeed", new FixedMetadataValue(this, 100));
-            }
-            else {
-            // Удаление значения per-block tick rate для других типов блоков
+            } else {
+                // Удаление значения per-block tick rate для других типов блоков
                 if (block.hasMetadata("CustomTickSpeed")) {
                     block.removeMetadata("CustomTickSpeed", this);
                 }
             }
+        }
+
+        if (biome == Biome.DESERT) {
+            if (block.getType() == Material.WHEAT) {
+                block.setMetadata("CustomTickSpeed", new FixedMetadataValue(this, 1));
+            } else {
+                // Удаление значения per-block tick rate для других типов блоков
+                if (block.hasMetadata("CustomTickSpeed")) {
+                    block.removeMetadata("CustomTickSpeed", this);
+                }
+            }
+        }
     }
 
 
     public void onDisable() {
         // Plugin shutdown logic
     }
-
-}
 
 }
