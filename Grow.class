@@ -3,26 +3,13 @@ package org.regicide.test.SystemOfGrow;
 import org.bukkit.Material;
 import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
-import org.bukkit.entity.Ageable;
+import org.bukkit.block.data.Ageable;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockGrowEvent;
 
 public class Grow implements Listener
 {
-    private static int getMaxAge(Block block) {
-        Material material = block.getType();
-        if (material == Material.WHEAT) {
-            return 7;
-        } else if (material == Material.CARROTS) {
-            return 7;
-        } else if (material == Material.POTATOES) {
-            return 7;
-        } else if (material == Material.BEETROOTS) {
-            return 3;
-        }
-        return 0;
-    }
 
     @EventHandler
     public void onBlockGrow(BlockGrowEvent event)
@@ -36,8 +23,7 @@ public class Grow implements Listener
                     if (block.getBlockData() instanceof Ageable) {
                         Ageable ageable = (Ageable) block.getBlockData();
                         org.bukkit.material.Crops cropsData = (org.bukkit.material.Crops) block.getState().getData();
-                        int maxAge = getMaxAge(block);
-                        if (ageable.getAge() < maxAge) {
+                        if (ageable.getAge() < ageable.getMaximumAge()) {
                             cropsData.setData((byte) (cropsData.getData() / 2));
                             block.getState().update();
                         }
@@ -45,14 +31,13 @@ public class Grow implements Listener
                 }
             }
 
-            else if (biome == Biome.BIRCH_FOREST)
+            else if ((biome == Biome.BIRCH_FOREST) || (biome == Biome.RIVER))
             {
                 if (block.getState().getData() instanceof org.bukkit.material.Crops) {
                     if (block.getBlockData() instanceof Ageable) {
                         Ageable ageable = (Ageable) block.getBlockData();
                         org.bukkit.material.Crops cropsData = (org.bukkit.material.Crops) block.getState().getData();
-                        int maxAge = getMaxAge(block);
-                        if (ageable.getAge() < maxAge) {
+                        if (ageable.getAge() < ageable.getMaximumAge()) {
                             cropsData.setData((byte) (cropsData.getData() + 2));
                             block.getState().update();
                         }
@@ -66,8 +51,7 @@ public class Grow implements Listener
                     if (block.getBlockData() instanceof Ageable) {
                         Ageable ageable = (Ageable) block.getBlockData();
                         org.bukkit.material.Crops cropsData = (org.bukkit.material.Crops) block.getState().getData();
-                        int maxAge = getMaxAge(block);
-                        if (ageable.getAge() < maxAge) {
+                        if (ageable.getAge() < ageable.getMaximumAge()) {
                             cropsData.setData((byte) (cropsData.getData() + 3));
                             block.getState().update();
                         }
