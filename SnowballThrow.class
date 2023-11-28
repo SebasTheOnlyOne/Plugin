@@ -1,10 +1,9 @@
 package org.regicide.test.SnowballThrow;
 
-import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.World;
 import org.bukkit.block.Block;
-import org.bukkit.entity.Snowball;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ProjectileHitEvent;
@@ -13,20 +12,16 @@ public class SnowballThrow implements Listener
 {
     @EventHandler
     public void onProjectileHit(ProjectileHitEvent event) {
-        if (!(event.getEntity() instanceof Snowball)) {
-            return;
-        }
+        if (event.getEntity().getShooter() instanceof Player) {
+            Player player = (Player) event.getEntity().getShooter();
 
-        Snowball snowball = (Snowball) event.getEntity();
-        Location snowballLocation = snowball.getLocation();
-        World world = snowball.getWorld();
+            if (event.getEntityType() == EntityType.SNOWBALL) {
+                Block hitBlock = event.getHitBlock();
 
-        Block block = event.getHitBlock();
-        Location blockLocation = snowballLocation.getBlock().getLocation();
-
-        if (blockLocation.getBlock().getType() != Material.AIR) {
-            world.getBlockAt(blockLocation).setType(Material.AIR);
+                if (hitBlock != null) {
+                    hitBlock.setType(Material.AIR);
+                }
+            }
         }
     }
 }
-
