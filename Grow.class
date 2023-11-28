@@ -195,66 +195,6 @@ public class Grow implements Listener
         block.setMetadata("customTickSpeed", new FixedMetadataValue(mainPlugin, tickSpeed));
     }
 
-    /*
-    @EventHandler
-    public void onBlockGrow(BlockGrowEvent event)
-    {
-        Block block = event.getBlock();
-        Biome biome = block.getBiome();
-
-        if (block.getType() == Material.WHEAT) {
-            if (biome == Biome.DESERT) {
-                if (block.getState().getData() instanceof org.bukkit.material.Crops) {
-                    if (block.getBlockData() instanceof Ageable) {
-                        Ageable ageable = (Ageable) block.getBlockData();
-                        org.bukkit.material.Crops cropsData = (org.bukkit.material.Crops) block.getState().getData();
-                        if (ageable.getAge() < ageable.getMaximumAge()) {
-                            cropsData.setData((byte) (cropsData.getData() / 2));
-                            block.getState().update();
-                        }
-                    }
-                }
-            }
-
-            else if ((biome == Biome.BIRCH_FOREST) || (biome == Biome.RIVER))
-            {
-                block.getWorld().setGameRuleValue("randomTickSpeed", "200");
-                if (block.getState().getData() instanceof org.bukkit.material.Crops) {
-                    if (block.getBlockData() instanceof Ageable) {
-                        Ageable ageable = (Ageable) block.getBlockData();
-                        org.bukkit.material.Crops cropsData = (org.bukkit.material.Crops) block.getState().getData();
-                        if (ageable.getAge() < ageable.getMaximumAge()) {
-                            cropsData.setData((byte) (cropsData.getData() + 2));
-                            block.getState().update();
-                        }
-                    }
-                }
-            }
-
-            else if (biome == Biome.END_MIDLANDS)
-            {
-                if (block.getState().getData() instanceof org.bukkit.material.Crops) {
-                    if (block.getBlockData() instanceof Ageable) {
-                        Ageable ageable = (Ageable) block.getBlockData();
-                        org.bukkit.material.Crops cropsData = (org.bukkit.material.Crops) block.getState().getData();
-                        if (ageable.getAge() < ageable.getMaximumAge()) {
-                            cropsData.setData((byte) (cropsData.getData() + 3));
-                            block.getState().update();
-                        }
-                    }
-                }
-            }
-
-            else {
-// Обычная скорость роста пшеницы в остальных биомах
-                if (block.getData() < 7) {
-                    //block.setBlockData(block.getBlockData() ++);
-                }
-            }
-        }
-    }
-*/
-
 
 }
 
