@@ -1,17 +1,8 @@
 package org.regicide.test;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.block.Biome;
-import org.bukkit.block.Block;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockGrowEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.regicide.test.Entity.SpawnEntity;
-import org.regicide.test.SnowballThrow.SnowballThrow;
 import org.regicide.test.SystemOfGrow.Grow;
 
 import java.util.logging.Logger;
@@ -20,51 +11,12 @@ public final class Test extends JavaPlugin implements Listener {
 
     public void onEnable()
     {
-        getCommand("spawnEntity").setExecutor(new SpawnEntity());
-        Bukkit.getPluginManager().registerEvents(new SnowballThrow(), this);
-        //getLogger().arg("WheatGrowth plugin has been enabled.");
-        Bukkit.getPluginManager().registerEvents(new Grow(), this);
+        Bukkit.getPluginManager().registerEvents(new Grow(this), this);
         Logger logger = getLogger();
         logger.info("The plagin get started");
         getServer().getPluginManager().registerEvents(this, this);
         logger.info("CustomTickSpeedPlugin has been enabled!");
     }
-
-    @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent event)
-        {
-            event.setJoinMessage("Welcome to server!");
-        }
-
-
-    @EventHandler
-    public void onBlockGrow(BlockGrowEvent event) {
-        Block block = event.getBlock();
-        Biome biome = block.getBiome();
-        block.getWorld().setGameRuleValue("randomTickSpeed", "3");
-        if (biome == Biome.PLAINS) {
-            if ((biome == Biome.PLAINS) || (biome == Biome.RIVER)) {
-                block.setMetadata("CustomTickSpeed", new FixedMetadataValue(this, 100));
-            } else {
-                // Удаление значения per-block tick rate для других типов блоков
-                if (block.hasMetadata("CustomTickSpeed")) {
-                    block.removeMetadata("CustomTickSpeed", this);
-                }
-            }
-        }
-
-        if (biome == Biome.DESERT) {
-            if (block.getType() == Material.WHEAT) {
-                block.setMetadata("CustomTickSpeed", new FixedMetadataValue(this, 0.5));
-            } else {
-                // Удаление значения per-block tick rate для других типов блоков
-                if (block.hasMetadata("CustomTickSpeed")) {
-                    block.removeMetadata("CustomTickSpeed", this);
-                }
-            }
-        }
-    }
-
 
     public void onDisable() {
         // Plugin shutdown logic
